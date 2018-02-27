@@ -1,13 +1,19 @@
 @page :first {
-	background-image: url('https://api.annhe.net/gv/api.php?cht=cover:ten&chl=@TITLE@%0D%0A@DATE@');background-image-resize: 6;background-position: top left;background-repeat: no-repeat;background-image-resolution: from-image;
+	background-image: url('https://api.annhe.net/gv/api.php?cht=cover&chl=@TITLE@%0D%0A@DATE@');background-image-resize: 6;background-position: top left;background-repeat: no-repeat;background-image-resolution: from-image;
 	/*	margin:-10em,-20em,-10em,-4em;*/
+}
+
+h1 {
+	text-align: center;
 }
 
 table.pdfheader {
     font-size: 8pt;
+	font-color:#BEBEBE;
     border-collapse: collapse;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #D3D3D3;
     clear: both;
+	margin-bottom: 1em;
 }
 
 table.pdffooter {
