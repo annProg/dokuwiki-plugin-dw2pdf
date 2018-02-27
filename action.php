@@ -25,6 +25,7 @@ class action_plugin_dw2pdf extends DokuWiki_Action_Plugin {
     protected $exportConfig = null;
     protected $tpl;
     protected $title;
+    protected $author;
     protected $list = array();
     protected $onetimefile = false;
 
@@ -667,7 +668,7 @@ class action_plugin_dw2pdf extends DokuWiki_Action_Plugin {
         $qr_code = '';
         if($this->getConf('qrcodesize')) {
             $url = urlencode(wl($id, '', '&', true));
-            $qr_code = '<img src="https://chart.googleapis.com/chart?chs=' .
+            $qr_code = '<img src="https://api.annhe.net/gv/api.php?chs=' .
                 $this->getConf('qrcodesize') . '&cht=qr&chl=' . $url . '" />';
         }
         // prepare replacements
@@ -717,6 +718,8 @@ class action_plugin_dw2pdf extends DokuWiki_Action_Plugin {
      */
     protected function load_css() {
         global $conf;
+        global $INPUT;
+        $this->author = $INPUT->str('author');
         //reusue the CSS dispatcher functions without triggering the main function
         define('SIMPLE_TEST', 1);
         require_once(DOKU_INC . 'lib/exe/css.php');
@@ -758,6 +761,12 @@ class action_plugin_dw2pdf extends DokuWiki_Action_Plugin {
             $css = css_applystyle($css, DOKU_INC . 'lib/tpl/' . $conf['template'] . '/');
         }
 
+        $replace = array(
+            '@TITLE@'   => hsc($this->title),
+            '@DATE@' => explode(" ", dformat(time()))[0] . "   " . $this->author,
+        );
+
+        $css = str_replace(array_keys($replace), array_values($replace), $css);
         return $css;
     }
 

@@ -1,5 +1,5 @@
 base    dw2pdf
-author  Andreas Gohr and Luigi Micco
+author  Andreas Gohr and Luigi Micco(Mod by Annhe)
 email   l.micco@tiscali.it
 date    2018-01-11
 name    Dw2Pdf plugin
