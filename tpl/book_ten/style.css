@@ -1,9 +1,12 @@
 @page :first {
-	background-image: url('https://api.annhe.net/gv/api.php?cht=cover&chl=@TITLE@%0D%0A@DATE@');background-image-resize: 6;background-position: top left;background-repeat: no-repeat;background-image-resolution: from-image;
+	background-image: url('https://api.annhe.net/gv/api.php?cht=cover:ten&chl=@TITLE@%0D%0A@DATE@');background-image-resize: 6;background-position: top left;background-repeat: no-repeat;background-image-resolution: from-image;
 	/*	margin:-10em,-20em,-10em,-4em;*/
 }
 
-h1 {
+h1,h2,h3,h4 {
+	font-family: wqymicrohei;
+}
+.dokuwiki h1 {
 	text-align: center;
 }
 

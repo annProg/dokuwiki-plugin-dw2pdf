@@ -3,7 +3,10 @@
 	/*	margin:-10em,-20em,-10em,-4em;*/
 }
 
-h1 {
+h1,h2,h3,h4 {
+	font-family: wqymicrohei;
+}
+.dokuwiki h1 {
 	text-align: center;
 }
 

@@ -26,7 +26,7 @@ class DokuPDF extends \Mpdf\Mpdf {
      * @param string $orientation
      * @param int $fontsize
      */
-    function __construct($pagesize = 'A4', $orientation = 'portrait', $fontsize = 11) {
+    function __construct($pagesize = 'A4', $orientation = 'portrait', $fontsize = 12) {
         global $conf;
 
         io_mkdir_p(_MPDF_TEMP_PATH);
@@ -49,21 +49,35 @@ class DokuPDF extends \Mpdf\Mpdf {
         }
 
         // we're always UTF-8
-        parent::__construct(
-            array(
-                'mode' => $mode,
-                'format' => $format,
-                'fontsize' => $fontsize,
-                'ImageProcessorClass' => DokuImageProcessorDecorator::class,
-                'tempDir' => _MPDF_TEMP_PATH //$conf['tmpdir'] . '/tmp/dwpdf'
+        $defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
+        $fontData = $defaultFontConfig['fontdata'];
+        $customFont = array(
+            'wqymicrohei' => array(
+                'R' => 'wqy-microhei.ttc',
+                'B' => 'wqy-microhei.ttc',
+                'I' => 'wqy-microhei.ttc',
+                'TTCfontID' => array(
+                    'R' => 1,
+                    'B' => 1,
+                    'I' => 1
+                )
             )
         );
+        $config = array(
+            'mode' => $mode,
+            'format' => $format,
+            'fontsize' => $fontsize,
+            'ImageProcessorClass' => DokuImageProcessorDecorator::class,
+            'tempDir' => _MPDF_TEMP_PATH, //$conf['tmpdir'] . '/tmp/dwpdf'
+            'fontdata' => $fontData + $customFont,
+        );
+        parent::__construct($config);
 
         $this->autoScriptToLang = true;
         $this->baseScript = 1;
         $this->autoVietnamese = true;
         $this->autoArabic = true;
-        $this->autoLangToFont = true;
+        $this->autoLangToFont = false;
 
         $this->ignore_invalid_utf8 = true;
         $this->tabSpaces = 4;
