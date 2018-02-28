@@ -12,19 +12,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/mpdf.git",
-                "reference": "4b5f88f7b826d3a67bff6a1d7bf43806dac33bb4"
+                "reference": "ed27fb22774fbd67b41074beabe169ff8ad61c24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/4b5f88f7b826d3a67bff6a1d7bf43806dac33bb4",
-                "reference": "4b5f88f7b826d3a67bff6a1d7bf43806dac33bb4",
+                "url": "https://files.phpcomposer.com/files/mpdf/mpdf/ed27fb22774fbd67b41074beabe169ff8ad61c24.zip",
+                "reference": "ed27fb22774fbd67b41074beabe169ff8ad61c24",
                 "shasum": ""
             },
             "require": {
                 "ext-gd": "*",
                 "ext-mbstring": "*",
-                "paragonie/random_compat": "^2.0",
-                "php": "^5.6 || ~7.0.0 || ~7.1.0",
+                "paragonie/random_compat": "^1.4|^2.0",
+                "php": "^5.6 || ~7.0.0 || ~7.1.0 || ~7.2.0",
                 "psr/log": "^1.0",
                 "setasign/fpdi": "1.6.*"
             },
@@ -48,14 +48,11 @@
             "autoload": {
                 "psr-4": {
                     "Mpdf\\": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0"
+                "GPL-2.0-only"
             ],
             "authors": [
                 {
@@ -74,7 +71,7 @@
                 "php",
                 "utf-8"
             ],
-            "time": "2017-06-05T11:42:31+00:00"
+            "time": "2018-02-26T11:08:45+00:00"
         },
         {
             "name": "psr/log",
