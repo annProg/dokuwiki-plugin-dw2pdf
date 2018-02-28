@@ -4,7 +4,7 @@
 }
 
 h1,h2,h3,h4 {
-	font-family: wqymicrohei;
+	font-family: wqymicrohei, sans-serif;
 }
 .dokuwiki h1 {
 	text-align: center;
