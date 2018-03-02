@@ -6,7 +6,7 @@
  * to make sure they are not overwritten by updates
  */
 body {
-	font-family: gb,sans-serif;
+	font-family: sans-serif, wqymicrohei, sun-exta, gb;
 	font-size: "@FONTSIZE@";
 }
 div.mpdf_toc {

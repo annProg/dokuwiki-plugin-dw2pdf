@@ -405,6 +405,10 @@ class action_plugin_dw2pdf extends DokuWiki_Action_Plugin {
                             $this->getExportConfig('orientation'),
                             $this->getExportConfig('font-size'));
 
+        $auto = $INPUT->str('auto');
+        if($auto) {
+            $mpdf->autoLangToFont = true;
+        }
         // let mpdf fix local links
         $self = parse_url(DOKU_URL);
         $url = $self['scheme'] . '://' . $self['host'];
