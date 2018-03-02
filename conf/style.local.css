@@ -7,3 +7,6 @@ div.mpdf_toc {
 pre,code,samp,kbd {
 	font-family: Consolas,"Andale Mono WT","Andale Mono",gb,"Nimbus Mono L",Monaco,"Courier New",monospace;
 }
+.plugin_wrap p {
+	margin: 0 0 1.4em 3.5em;
+}
