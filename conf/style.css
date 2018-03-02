@@ -5,9 +5,18 @@
  * lib/plugins/dw2pdf/conf/style.local.css or create your own template
  * to make sure they are not overwritten by updates
  */
-
 body {
-    font-family: sans-serif;
+	font-family: gb,sans-serif;
+	font-size: "@FONTSIZE@";
+}
+div.mpdf_toc {
+	font-family: gb,sans-serif;
+}
+pre,code,samp,kbd {
+	font-family: Consolas,"Andale Mono WT","Andale Mono",gb,"Nimbus Mono L",Monaco,"Courier New",monospace;
+}
+.plugin_wrap p {
+	margin: 0 0 1.4em 3.5em;
 }
 
 a {

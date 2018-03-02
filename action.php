@@ -764,6 +764,7 @@ class action_plugin_dw2pdf extends DokuWiki_Action_Plugin {
         $replace = array(
             '@TITLE@'   => hsc($this->title),
             '@DATE@' => explode(" ", dformat(time()))[0] . "   " . $this->author,
+            '"@FONTSIZE@"' => $this->getExportConfig('font-size') . "pt",
         );
 
         $css = str_replace(array_keys($replace), array_values($replace), $css);
