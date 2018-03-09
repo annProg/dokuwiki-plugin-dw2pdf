@@ -77,7 +77,7 @@ class DokuPDF extends \Mpdf\Mpdf {
         $this->baseScript = 35; // \Mpdf\Ucdn::SCRIPT_HAN 以中文为基准，中文不会被执行autoScriptToLang
         $this->autoVietnamese = true;
         $this->autoArabic = true;
-        $this->autoLangToFont = false;
+        $this->autoLangToFont = true;
 
         $this->ignore_invalid_utf8 = true;
         $this->tabSpaces = 4;
