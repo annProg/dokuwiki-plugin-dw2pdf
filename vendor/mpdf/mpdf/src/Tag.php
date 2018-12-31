@@ -140,7 +140,7 @@ class Tag
 			'FORMFEED' => 'FormFeed',
 			'HGROUP' => 'HGroup',
 			'INDEXENTRY' => 'IndexEntry',
-			'INDEXINSERT' => 'IndexInsert',
+			'INDEXINSET' => 'IndexInsert',
 			'NEWCOLUMN' => 'NewColumn',
 			'NEWPAGE' => 'NewPage',
 			'PAGEFOOTER' => 'PageFooter',

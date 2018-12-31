@@ -55,7 +55,7 @@ use Psr\Log\NullLogger;
 class Mpdf implements \Psr\Log\LoggerAwareInterface
 {
 
-	const VERSION = '7.0.4';
+	const VERSION = '7.0.3';
 
 	const SCALE = 72 / 25.4;
 
@@ -97,7 +97,6 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 	var $PDFXauto;
 
 	var $PDFA;
-	var $PDFAversion = '1-B';
 	var $PDFAauto;
 	var $ICCProfile;
 
@@ -1165,13 +1164,7 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 		$this->tbrot_Annots = [];
 		$this->kwt_Annots = [];
 		$this->columnAnnots = [];
-		$this->PageLinks = [];
-		$this->OrientationChanges = [];
 		$this->pageDim = [];
-		$this->saveHTMLHeader = [];
-		$this->saveHTMLFooter = [];
-		$this->PageAnnots = [];
-		$this->PageNumSubstitutions = [];
 		$this->breakpoints = []; // used in columnbuffer
 		$this->tableLevel = 0;
 		$this->tbctr = []; // counter for nested tables at each level
@@ -1516,7 +1509,6 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 		$this->selectoption = [];
 
 		/* -- IMPORTS -- */
-		$this->parsers = [];
 		$this->tpls = [];
 		$this->tpl = 0;
 		$this->tplprefix = "/TPL";
@@ -9296,10 +9288,8 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 
 			case Destination::INLINE:
 
-				if (headers_sent($filename, $line)) {
-					throw new \Mpdf\MpdfException(
-						sprintf('Data has already been sent to output (%s at line %s), unable to output PDF file', $filename, $line)
-					);
+				if (headers_sent()) {
+					throw new \Mpdf\MpdfException('Data has already been sent to output, unable to output PDF file');
 				}
 
 				if ($this->debug && !$this->allow_output_buffering && ob_get_contents()) {
@@ -9523,7 +9513,7 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 
 				// if bottom-margin==0, corrects to avoid division by zero
 				if ($this->y == $this->h) {
-					$top_y = $this->y = ($this->h + 0.01);
+					$top_y = $this->y = ($this->h - 0.1);
 				}
 
 				$html = str_replace('{PAGENO}', $pnstr, $html);
@@ -11023,18 +11013,10 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 			$m .= '   <rdf:Description rdf:about="uuid:' . $uuid . '" xmlns:pdfx="http://ns.adobe.com/pdfx/1.3/" pdfx:Apag_PDFX_Checkup="1.3" pdfx:GTS_PDFXConformance="PDF/X-1a:2003" pdfx:GTS_PDFXVersion="PDF/X-1:2003"/>' . "\n";
 		} // This bit is specific to PDFA-1b
 		elseif ($this->PDFA) {
-
-			if (strpos($this->PDFAversion, '-') === false) {
-				throw new \Mpdf\MpdfException(sprintf('PDFA version (%s) is not valid. (Use: 1-B, 3-B, etc.)', $this->PDFAversion));
-			}
-
-			list($part, $conformance) = explode('-', strtoupper($this->PDFAversion));
 			$m .= '   <rdf:Description rdf:about="uuid:' . $uuid . '" xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/" >' . "\n";
-			$m .= '    <pdfaid:part>' . $part . '</pdfaid:part>' . "\n";
-			$m .= '    <pdfaid:conformance>' . $conformance . '</pdfaid:conformance>' . "\n";
-			if ($part === '1' && $conformance === 'B') {
-				$m .= '    <pdfaid:amd>2005</pdfaid:amd>' . "\n";
-			}
+			$m .= '    <pdfaid:part>1</pdfaid:part>' . "\n";
+			$m .= '    <pdfaid:conformance>B</pdfaid:conformance>' . "\n";
+			$m .= '    <pdfaid:amd>2005</pdfaid:amd>' . "\n";
 			$m .= '   </rdf:Description>' . "\n";
 		}
 
@@ -11141,12 +11123,10 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 			$this->_out('/Type /Filespec');
 			$this->_out('/EF <<');
 			$this->_out('/F ' . ($this->n + 1) . ' 0 R');
-			$this->_out('/UF ' . ($this->n + 1) . ' 0 R');
 			$this->_out('>>');
 			if ($file['AFRelationship']) {
 				$this->_out('/AFRelationship /' . $file['AFRelationship']);
 			}
-			$this->_out('/UF ' . $this->_textstring($file['name']));
 			$this->_out('>>');
 			$this->_out('endobj');
 
@@ -13117,7 +13097,7 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 
 			$path = $path . "/" . $filepath; // Make it an absolute path
 
-		} elseif ((strpos($path, ":/") === false || strpos($path, ":/") > 10) && !is_file($path)) { // It is a local link
+		} elseif (strpos($path, ":/") === false || strpos($path, ":/") > 10) { // It is a local link
 
 			if (substr($path, 0, 1) == "/") {
 
@@ -25648,6 +25628,9 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 
 	function TOCpagebreak($tocfont = '', $tocfontsize = '', $tocindent = '', $TOCusePaging = true, $TOCuseLinking = '', $toc_orientation = '', $toc_mgl = '', $toc_mgr = '', $toc_mgt = '', $toc_mgb = '', $toc_mgh = '', $toc_mgf = '', $toc_ohname = '', $toc_ehname = '', $toc_ofname = '', $toc_efname = '', $toc_ohvalue = 0, $toc_ehvalue = 0, $toc_ofvalue = 0, $toc_efvalue = 0, $toc_preHTML = '', $toc_postHTML = '', $toc_bookmarkText = '', $resetpagenum = '', $pagenumstyle = '', $suppress = '', $orientation = '', $mgl = '', $mgr = '', $mgt = '', $mgb = '', $mgh = '', $mgf = '', $ohname = '', $ehname = '', $ofname = '', $efname = '', $ohvalue = 0, $ehvalue = 0, $ofvalue = 0, $efvalue = 0, $toc_id = 0, $pagesel = '', $toc_pagesel = '', $sheetsize = '', $toc_sheetsize = '', $tocoutdent = '')
 	{
+		if (!$resetpagenum) {
+			$resetpagenum = 1;
+		} // mPDF 6
 		// Start a new page
 		if ($this->state == 0) {
 			$this->AddPage();
@@ -29055,12 +29038,7 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 		// Tags which are self-closing: 1) Replaceable and 2) Non-replaced items
 		$selftabs = 'input|hr|img|br|barcode|dottab';
 		$selftabs2 = 'indexentry|indexinsert|bookmark|watermarktext|watermarkimage|column_break|columnbreak|newcolumn|newpage|page_break|pagebreak|formfeed|columns|toc|tocpagebreak|setpageheader|setpagefooter|sethtmlpageheader|sethtmlpagefooter|annotation';
-
-		// Fix self-closing tags which don't close themselves
 		$html = preg_replace('/(<(' . $selftabs . '|' . $selftabs2 . ')[^>\/]*)>/i', '\\1 />', $html);
-
-		// Fix self-closing tags that don't include a space between the tag name and the closing slash
-		$html = preg_replace('/(<(' . $selftabs . '|' . $selftabs2 . '))\/>/i', '\\1 />', $html);
 
 		$iterator = 0;
 		while ($thereispre) { // Recover <pre attributes>content</pre>

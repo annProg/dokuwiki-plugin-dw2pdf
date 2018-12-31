@@ -1,17 +1,17 @@
 [
     {
         "name": "mpdf/mpdf",
-        "version": "dev-development",
-        "version_normalized": "dev-development",
+        "version": "v7.0.3",
+        "version_normalized": "7.0.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/mpdf/mpdf.git",
-            "reference": "ed27fb22774fbd67b41074beabe169ff8ad61c24"
+            "reference": "5681a0cae1eea197143d5d27f06e19b0523cd8d6"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/mpdf/mpdf/ed27fb22774fbd67b41074beabe169ff8ad61c24.zip",
-            "reference": "ed27fb22774fbd67b41074beabe169ff8ad61c24",
+            "url": "https://api.github.com/repos/mpdf/mpdf/zipball/5681a0cae1eea197143d5d27f06e19b0523cd8d6",
+            "reference": "5681a0cae1eea197143d5d27f06e19b0523cd8d6",
             "shasum": ""
         },
         "require": {
@@ -33,7 +33,7 @@
             "ext-xml": "Needed mainly for SVG manipulation",
             "ext-zlib": "Needed for compression of embedded resources, such as fonts"
         },
-        "time": "2018-02-26T11:08:45+00:00",
+        "time": "2018-01-03T07:32:36+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -48,7 +48,7 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "GPL-2.0-only"
+            "GPL-2.0"
         ],
         "authors": [
             {

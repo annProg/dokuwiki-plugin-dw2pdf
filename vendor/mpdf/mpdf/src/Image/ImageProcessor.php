@@ -16,7 +16,7 @@ use Mpdf\SizeConverter;
 
 use Psr\Log\LoggerInterface;
 
-class ImageProcessor implements \Psr\Log\LoggerAwareInterface
+class ImageProcessor
 {
 
 	/**
@@ -111,24 +111,11 @@ class ImageProcessor implements \Psr\Log\LoggerAwareInterface
 		$this->cache = $cache;
 		$this->languageToFont = $languageToFont;
 		$this->scriptToLanguage = $scriptToLanguage;
-
 		$this->logger = $logger;
 
 		$this->guesser = new ImageTypeGuesser();
 
 		$this->failedImages = [];
-	}
-
-	/**
-	 * @param \Psr\Log\LoggerInterface
-	 *
-	 * @return \Mpdf\Mpdf
-	 */
-	public function setLogger(LoggerInterface $logger)
-	{
-		$this->logger = $logger;
-
-		return $this;
 	}
 
 	public function getImage(&$file, $firsttime = true, $allowvector = true, $orig_srcpath = false, $interpolation = false)

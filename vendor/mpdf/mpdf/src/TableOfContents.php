@@ -843,6 +843,9 @@ class TableOfContents
 				if (!$suppress) {
 					$suppress = 'off';
 				}
+				if (!$resetpagenum) {
+					$resetpagenum = 1;
+				}
 				$this->mpdf->PageNumSubstitutions[] = ['from' => 1, 'reset' => $resetpagenum, 'type' => $pagenumstyle, 'suppress' => $suppress];
 			}
 			return [true, $toc_id];
